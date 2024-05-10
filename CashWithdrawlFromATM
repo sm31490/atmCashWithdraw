@@ -1,0 +1,40 @@
+public class CashWithdrawlFromATM{
+
+public static void main(String args[]){
+  long currentBalance= 1000000;
+  long withdrawAmount=5000;
+  withdrawCash(currentBalance, withdrawAmount);
+}
+
+synchronized void withdrawCash(long availableCash, long withdrawCash){
+try{
+  System.out.println("Hi User.. Your available balance is :" + availableCash + " and you are going to withdraw amount:" + withdrawCash);
+int notes[6]={500, 200, 100,50,20,10};
+int counter[6]={0};
+long withdrawCashNew= withdrawCash;
+
+  if(availableCash > withdrawCashNew ){
+    if( withdrawCashNew % 10 == 0 ){
+      for(int i=0;i<6;i++){
+        if(withdrawCashNew >= notes[i]){
+          counter[i]= withdrawCashNew/notes[i];
+          withdrawCashNew = withdrawCashNew % notes[i];
+        }
+      }
+      for(int j=0; j<6;j++){
+        if(counter[j] !=0){
+          System.out.println("Notes Count: " + notes[j] +"  " +counter[j]);
+        }
+      }
+  System.out.println("Your available balance is :"+ (availableCash - withdrawCash));
+    }else{
+      System.out.println("Please enter a valid amount. Withdraw amount should be multiplied by 10..");
+    }
+  }else{
+    System.out.println("You don't have sufficient balance to withdraw the cash..");
+  }
+} catch(Exception exc){
+  System.out.println("Exception Occured"+ exc.printStackTrace());
+}
+}
+}
